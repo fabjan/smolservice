@@ -1,0 +1,6 @@
+local
+  $(SML_LIB)/basis/basis.mlb
+in
+  src/smolservice.sml
+  src/main.sml
+end
