@@ -5,7 +5,7 @@ RUN apk add --no-cache g++
 RUN apk add --no-cache polyml-dev
 
 COPY src src
-COPY *.mlb build.sh .
+COPY *.mlb polybuild.sml build.sh .
 
 RUN SML_COMPILER=polyc ./build.sh
 
