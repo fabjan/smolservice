@@ -31,23 +31,10 @@ _build/smolservice
 
 A container:
 ```
-podman run --rm -it -p8989:8989 smolservice
+podman run --rm -it -p3000:3000 smolservice
 ```
 
 Connect a client:
 ```
-telnet localhost 8989
+curl http://localhost:3000
 ```
-
-## Next steps
-
-`polybuild` was created to support the recursive MLB setups created by
-`smlpkg`, use [sml-server] via [smlpkg] for a more complete example.
-
-Problems:
-* Alpine linux only seems to have polyml, no mlton or mlkit
-* cmdargs.sml seems incompatible with Poly/ML (argv is evaluated at build time)
-* http-server crashes with `Run out of store - interrupting threads` if built with Poly/ML
-
-[sml-server]: https://github.com/diku-dk/sml-server
-[smlpkg]: https://github.com/diku-dk/smlpkg
