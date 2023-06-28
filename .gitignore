@@ -1,3 +1,5 @@
+fly.toml
+
 _build/
 a.out
 
