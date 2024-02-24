@@ -3,7 +3,7 @@ name: ci
 on: push
 
 env:
-  RELEASE_BRANCH: "ref/head/master"
+  RELEASE_BRANCH: "refs/heads/main"
 
 jobs:
   build:
