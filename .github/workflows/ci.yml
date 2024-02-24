@@ -37,3 +37,12 @@ jobs:
           push: ${{ github.ref == 'ref/head/master' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Write summary
+        run: |
+          TAGS=${{ steps.meta.outputs.tags }}
+          echo "## Tags" >> $GITHUB_STEP_SUMMARY
+          for t in ${TAGS//,/}
+          do
+              echo "- t" >> $GITHUB_STEP_SUMMARY
+          done
