@@ -21,7 +21,7 @@ log_error () {
 }
 
 if [ -z "$SML_COMPILER" ]; then
-    log "SML_COMPILER not set, using polyc (alternatives: mlton)"
+    log "SML_COMPILER not set, using polyc (alternatives: mlton, mlton-static)"
     SML_COMPILER=polyc
 fi
 
@@ -43,6 +43,10 @@ build () {
         mlton)
             log "Compiling $BUILD_FILE"
             mlton -output $BUILD_DIR/"$PROG" "$BUILD_FILE"
+            ;;
+        mlton-static)
+            log "Compiling $BUILD_FILE"
+            mlton -output $BUILD_DIR/"$PROG" -link-opt -static "$BUILD_FILE"
             ;;
         *)
             log_error "Unknown compiler $SML_COMPILER"
