@@ -31,8 +31,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push container image
-        if: github.ref == 'ref/head/master'
+      - name: Build (and maybe push) container image
         uses: docker/build-push-action@v5
         with:
           context: .
