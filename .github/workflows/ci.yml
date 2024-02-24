@@ -11,24 +11,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build container image
-        uses: docker/build-push-action@v5
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          context: .
-          tags: ghcr.io/fabjan/smolservice:latest
+          images: |
+            fabjan/smolservice
+            ghcr.io/fabjan/smolservice
+          tags: |
+            type=raw,value=v${{ env.GITHUB_RUN_NUMBER }}
+            type=sha
+            type=ref,event=branch
+            type=ref,event=pr
 
       - name: Log in to the container registry
-        if: github.ref == 'ref/head/master'
         uses: docker/login-action@v3
         with:
           registry: https://ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push container image
+      - name: Build and push container image
         if: github.ref == 'ref/head/master'
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
-          tags: ghcr.io/fabjan/smolservice:latest
+          push: ${{ github.ref == 'ref/head/master' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
