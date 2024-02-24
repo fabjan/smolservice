@@ -40,8 +40,6 @@ jobs:
 
       - name: Write summary
         run: |
-          echo "```" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
           echo "$DOCKER_METADATA_OUTPUT_TAGS" >> $GITHUB_STEP_SUMMARY
-          echo "```" >> $GITHUB_STEP_SUMMARY
-          echo "## Tags" >> $GITHUB_STEP_SUMMARY
-          echo $DOCKER_METADATA_OUTPUT_TAGS | sed 's/^/- /g' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
