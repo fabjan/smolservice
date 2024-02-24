@@ -42,7 +42,7 @@ jobs:
         run: |
           TAGS=${{ steps.meta.outputs.tags }}
           echo "## Tags" >> $GITHUB_STEP_SUMMARY
-          for t in ${TAGS//,/}
+          echo $TAGS | while read tag
           do
-              echo "- t" >> $GITHUB_STEP_SUMMARY
+              echo "- $tag" >> $GITHUB_STEP_SUMMARY
           done
