@@ -18,27 +18,27 @@ jobs:
           images: |
             ghcr.io/fabjan/smolservice
           tags: |
-            type=raw,value=v${{ github.run_number }}
+            type=raw,value=v0.0.${{ github.run_number }}
             type=sha
             type=ref,event=branch
             type=ref,event=pr
 
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: https://ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      #- name: Log in to the container registry
+      #  uses: docker/login-action@v3
+      #  with:
+      #    registry: https://ghcr.io
+      #    username: ${{ github.actor }}
+      #    password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build (and maybe push) container image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: ${{ github.ref == 'ref/head/master' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      #- name: Build (and maybe push) container image
+      #  uses: docker/build-push-action@v5
+      #  with:
+      #    context: .
+      #    push: ${{ github.ref == 'ref/head/master' }}
+      #    tags: ${{ steps.meta.outputs.tags }}
+      #    labels: ${{ steps.meta.outputs.labels }}
 
       - name: Write summary
         run: |
           echo "## Tags" >> $GITHUB_STEP_SUMMARY
-          echo $DOCKER_METADATA_OUTPUT_TAGS | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
+          echo $DOCKER_METADATA_OUTPUT_TAGS | sed 's/^/- /g' >> $GITHUB_STEP_SUMMARY
