@@ -19,7 +19,7 @@ jobs:
             fabjan/smolservice
             ghcr.io/fabjan/smolservice
           tags: |
-            type=raw,value=v${{ env.GITHUB_RUN_NUMBER }}
+            type=raw,value=v${{ github.run_number }}
             type=sha
             type=ref,event=branch
             type=ref,event=pr
