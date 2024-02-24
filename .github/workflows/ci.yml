@@ -16,7 +16,6 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            fabjan/smolservice
             ghcr.io/fabjan/smolservice
           tags: |
             type=raw,value=v${{ github.run_number }}
