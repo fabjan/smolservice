@@ -3,7 +3,7 @@ name: ci
 on: push
 
 env:
-  RELEASE_BRANCH: "refs/head/fix-image-push"
+  RELEASE_BRANCH: "refs/heads/fix-image-push"
 
 jobs:
   build:
