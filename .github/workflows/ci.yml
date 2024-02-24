@@ -1,0 +1,34 @@
+name: ci
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build container image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: ghcr.io/fabjan/smolservice:latest
+
+      - name: Log in to the container registry
+        if: github.ref == 'ref/head/master'
+        uses: docker/login-action@v3
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push container image
+        if: github.ref == 'ref/head/master'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/fabjan/smolservice:latest
