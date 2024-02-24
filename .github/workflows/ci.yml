@@ -3,7 +3,7 @@ name: ci
 on: push
 
 env:
-  RELEASE_BRANCH: "refs/heads/fix-image-push"
+  RELEASE_BRANCH: "refs/heads/main"
 
 jobs:
   build:
@@ -21,9 +21,7 @@ jobs:
           images: |
             ghcr.io/fabjan/smolservice
           tags: |
-            type=raw,value=RELEASEME,enable=${{ github.ref == env.RELEASE_BRANCH }}
-            type=raw,value=ref-${{ github.ref }}
-            type=raw,value=rel-${{ env.RELEASE_BRANCH }}
+            type=raw,value=v0.0.${{ github.run_number }},enable=${{ github.ref == env.RELEASE_BRANCH }}
             type=sha,prefix={{branch}}-
             type=ref,event=branch
             type=ref,event=pr
