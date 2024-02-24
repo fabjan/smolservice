@@ -21,7 +21,7 @@ jobs:
           images: |
             ghcr.io/fabjan/smolservice
           tags: |
-            type=raw,value=v0.0.${{ github.run_number }},enable=${{ github.ref == env.RELEASE_BRANCH }}
+            type=raw,priority=900,value=v0.0.${{ github.run_number }},enable=${{ github.ref == env.RELEASE_BRANCH }}
             type=sha,prefix={{branch}}-
             type=ref,event=branch
             type=ref,event=pr
