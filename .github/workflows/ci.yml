@@ -40,9 +40,5 @@ jobs:
 
       - name: Write summary
         run: |
-          TAGS=${{ steps.meta.outputs.tags }}
           echo "## Tags" >> $GITHUB_STEP_SUMMARY
-          echo $TAGS | while read tag
-          do
-              echo "- $tag" >> $GITHUB_STEP_SUMMARY
-          done
+          echo $DOCKER_METADATA_OUTPUT_TAGS | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
