@@ -14,23 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ghcr.io/fabjan/smolservice
-          tags: |
-            type=raw,priority=900,value=v0.0.${{ github.run_number }},enable=${{ github.ref == env.RELEASE_BRANCH }}
-            type=sha,prefix={{branch}}-
-            type=ref,event=branch
-            type=ref,event=pr
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          platforms: linux/amd64,linux/arm64
 
       - name: Check available platforms
         run: |
@@ -42,6 +31,18 @@ jobs:
           registry: https://ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/fabjan/smolservice
+          tags: |
+            type=raw,priority=900,value=v0.0.${{ github.run_number }},enable=${{ github.ref == env.RELEASE_BRANCH }}
+            type=sha,prefix={{branch}}-
+            type=ref,event=branch
+            type=ref,event=pr
 
       - name: Build (and maybe push) container image
         uses: docker/build-push-action@v6
